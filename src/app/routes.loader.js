@@ -21,6 +21,18 @@ module.exports = function loadRoutes(app, configs) {
 
     app.use(`${configs.API_PATH}/v${configs.VERSION}`, apiRoutes);
 
+    // Serve index.html for client-side routing (React Router)
+    app.get("*", (req, res, next) => {
+      if (
+        req.method === "GET" &&
+        !req.path.startsWith(`${configs.API_PATH}/v${configs.VERSION}`)
+      ) {
+        res.sendFile(join(process.cwd(), "client/dist", "index.html"));
+      } else {
+        next();
+      }
+    });
+
     // error handling routes
     app.use((req, res, next) => {
       next({
