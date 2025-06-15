@@ -14,7 +14,10 @@ app.express = express;
 const loadAll = (app) =>
   Promise.all([dbConnect(config), routeLoader(app, config)])
     .then(() => console.log(`resources have been loaded`))
-    .catch(process.exit);
+    .catch((e) => {
+      console.log(e);
+      process.exit();
+    });
 
 app.loadAll = loadAll;
 

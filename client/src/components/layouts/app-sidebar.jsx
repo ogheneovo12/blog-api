@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/sidebar";
 import { Link, useLocation } from "react-router";
 
-import { Home, Settings, User2 } from "lucide-react";
+import { BookIcon, Home, Settings, User2 } from "lucide-react";
 
 export function AppSidebar() {
   const location = useLocation();
@@ -20,18 +20,18 @@ export function AppSidebar() {
   const items = [
     {
       title: "Home",
-      url: "/app",
+      url: "/",
       icon: Home,
     },
     {
       title: "My Posts",
-      url: "/app/users",
-      icon: User2,
+      url: "/my-posts",
+      icon: BookIcon,
     },
     {
       title: "Profile",
-      url: "/app/project-ideas",
-      icon: Settings,
+      url: "/profile",
+      icon: User2,
     },
   ];
 

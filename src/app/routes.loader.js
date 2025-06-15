@@ -22,7 +22,7 @@ module.exports = function loadRoutes(app, configs) {
     app.use(`${configs.API_PATH}/v${configs.VERSION}`, apiRoutes);
 
     // Serve index.html for client-side routing (React Router)
-    app.get("*", (req, res, next) => {
+    app.get("/{*all}", (req, res, next) => {
       if (
         req.method === "GET" &&
         !req.path.startsWith(`${configs.API_PATH}/v${configs.VERSION}`)
