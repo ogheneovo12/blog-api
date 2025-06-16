@@ -1,14 +1,15 @@
 const cors = require("cors");
 const apiRoutes = require("./routes");
 const express = require("express");
-const { join } = require("path");
-const clientDistPath = join(__dirname, "..", "..", "..", "client", "dist");
-
+const path = require("path");
+const buildPath = path.normalize(path.join(__dirname, "../../client/dist"));
 /**
  * Registers all api routes with the express app.
  * @param  {object} config an exoress app instalce
  * @return {Promise} return resolved promise
  */
+
+console.log({ buildPath });
 
 module.exports = function loadRoutes(app, configs) {
   return new Promise((resolve, reject) => {
@@ -18,7 +19,7 @@ module.exports = function loadRoutes(app, configs) {
     app.use(express.json());
 
     // serve static files for react app
-    app.use(app.express.static(join(clientDistPath)));
+    app.use(app.express.static(buildPath));
 
     app.use(`${configs.API_PATH}/v${configs.VERSION}`, apiRoutes);
 
@@ -28,7 +29,7 @@ module.exports = function loadRoutes(app, configs) {
         req.method === "GET" &&
         !req.path.startsWith(`${configs.API_PATH}/v${configs.VERSION}`)
       ) {
-        res.sendFile(join(clientDistPath, "index.html"));
+        res.sendFile(path.join(buildPath, "index.html"));
       } else {
         next();
       }

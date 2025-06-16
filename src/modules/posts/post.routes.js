@@ -36,7 +36,6 @@ blogPostRouter
   )
   .get(
     "/view/:id",
-    authMiddleware,
     validateParams(idParamSchema),
     asyncHandler(PostController.getSinglePublishedBlog)
   )
