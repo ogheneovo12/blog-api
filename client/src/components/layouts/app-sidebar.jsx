@@ -13,8 +13,10 @@ import {
 import { Link, useLocation } from "react-router";
 
 import { BookIcon, Home, Settings, User2 } from "lucide-react";
+import { useSelector } from "react-redux";
 
 export function AppSidebar() {
+  const token = useSelector((state) => state.auth.accessToken);
   const location = useLocation();
 
   const items = [
@@ -27,11 +29,13 @@ export function AppSidebar() {
       title: "My Posts",
       url: "/my-posts",
       icon: BookIcon,
+      protected: true,
     },
     {
       title: "Profile",
       url: "/profile",
       icon: User2,
+      protected: true,
     },
   ];
 
@@ -51,20 +55,22 @@ export function AppSidebar() {
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {items.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton
-                    asChild
-                    isActive={location.pathname === item.url}
-                    className="h-10"
-                  >
-                    <Link to={item.url}>
-                      <item.icon size={48} />
-                      <span className="body-text">{item.title}</span>
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
+              {items.map((item) =>
+                item.protected && !token ? null : (
+                  <SidebarMenuItem key={item.title}>
+                    <SidebarMenuButton
+                      asChild
+                      isActive={location.pathname === item.url}
+                      className="h-10"
+                    >
+                      <Link to={item.url}>
+                        <item.icon size={48} />
+                        <span className="body-text">{item.title}</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                )
+              )}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>

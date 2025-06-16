@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const authRoutes = require("../modules/auth/auth.routes");
 const blogPostRouter = require("../modules/posts/post.routes");
-// const userRoutes = require("./users/user.routes");
+const userRouter = require("../modules/users/user.routes");
 
 const apiRouter = Router();
 
@@ -13,7 +13,7 @@ apiRouter.get("/", (req, res) => {
 });
 
 apiRouter.use("/auth", authRoutes);
-apiRouter.use("/blog-posts",blogPostRouter)
-// apiRouter.use(userRoutes);
+apiRouter.use("/blog-posts", blogPostRouter);
+apiRouter.use("users", userRouter);
 
 module.exports = apiRouter;

@@ -27,9 +27,9 @@ export const authSlice = createSlice({
     builder.addMatcher(
       authApiEndpoints.login.matchFulfilled,
       (state, { payload }) => {
+        console.log(payload);
         state.user = payload.user;
-        state.accessToken = payload.accessToken;
-        state.refreshToken = payload.refreshToken;
+        state.accessToken = payload.access_token;
       }
     );
     builder
@@ -37,14 +37,13 @@ export const authSlice = createSlice({
         authApiEndpoints.register.matchFulfilled,
         (state, { payload }) => {
           state.user = payload.user;
-          state.accessToken = payload.accessToken;
-          state.refreshToken = payload.refreshToken;
+          state.accessToken = payload.access_token;
         }
       )
       .addMatcher(
         authApiEndpoints.getUserProfile.matchFulfilled,
         (state, { payload }) => {
-          state.user = payload;
+          state.user = payload.user;
         }
       );
   },

@@ -15,6 +15,7 @@ export const authApi = ApiService.injectEndpoints({
         method: "POST",
         body: credentials,
       }),
+       transformResponse: (response) => response.data,
     }),
     register: builder.mutation({
       query: (credentials) => ({
@@ -22,6 +23,7 @@ export const authApi = ApiService.injectEndpoints({
         method: "POST",
         body: credentials,
       }),
+       transformResponse: (response) => response.data,
     }),
   }),
   overrideExisting: process.env.NODE_ENV == "development",

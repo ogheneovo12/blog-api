@@ -12,9 +12,19 @@ const baseQuery = fetchBaseQuery({
   },
 });
 
+const baseQueryWithAuthCheck = async (args, api, extraOptions) => {
+  let result = await baseQuery(args, api, extraOptions);
+  // If 401, try to refresh token
+  if (result.error?.status === 401) {
+    // Token Expired - logout
+    api.dispatch({ type: "auth/logout" });
+  }
+  return result;
+};
+
 export const ApiService = createApi({
   reducerPath: "Api",
-  baseQuery: baseQuery,
-  tagTypes: ["Auth", "Profile", "BlogPost"],
+  baseQuery: baseQueryWithAuthCheck,
+  tagTypes: ["Auth", "Profile", "BlogPost", "Users"],
   endpoints: () => ({}),
 });

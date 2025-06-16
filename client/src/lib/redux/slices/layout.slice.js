@@ -3,7 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   mode: "light",
   sidebarCollapsed: false,
-  showProjectNameForm: true,
+  showLoginForm: false,
+  showRegisterationForm: false,
 };
 
 export const layoutSlice = createSlice({
@@ -13,8 +14,11 @@ export const layoutSlice = createSlice({
     toggleSideBarCollapsed(state) {
       state.sidebarCollapsed = !state.sidebarCollapsed;
     },
-    toggleShowProjectNameForm(state) {
-      state.showProjectNameForm = !state.showProjectNameForm;
+    toggleShowLoginForm(state) {
+      state.showLoginForm = !state.showLoginForm;
+    },
+    toggleShowRegisterationForm(state) {
+      state.showRegisterationForm = !state.showRegisterationForm;
     },
     setMode(state, action) {
       state.mode = action.payload;
@@ -22,6 +26,10 @@ export const layoutSlice = createSlice({
   },
 });
 
-export const { toggleSideBarCollapsed, setMode, toggleShowProjectNameForm } =
-  layoutSlice.actions;
+export const {
+  toggleSideBarCollapsed,
+  setMode,
+  toggleShowLoginForm,
+  toggleShowRegisterationForm,
+} = layoutSlice.actions;
 export default layoutSlice.reducer;
