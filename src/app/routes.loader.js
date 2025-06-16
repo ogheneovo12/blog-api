@@ -2,6 +2,7 @@ const cors = require("cors");
 const apiRoutes = require("./routes");
 const express = require("express");
 const { join } = require("path");
+const clientDistPath = join(__dirname, "..", "..", "client", "dist");
 
 /**
  * Registers all api routes with the express app.
@@ -17,7 +18,7 @@ module.exports = function loadRoutes(app, configs) {
     app.use(express.json());
 
     // serve static files for react app
-    app.use(app.express.static(join(process.cwd(), "client/dist")));
+    app.use(app.express.static(join(clientDistPath)));
 
     app.use(`${configs.API_PATH}/v${configs.VERSION}`, apiRoutes);
 
@@ -27,7 +28,7 @@ module.exports = function loadRoutes(app, configs) {
         req.method === "GET" &&
         !req.path.startsWith(`${configs.API_PATH}/v${configs.VERSION}`)
       ) {
-        res.sendFile(join(process.cwd(), "client/dist", "index.html"));
+        res.sendFile(join(clientDistPath, "index.html"));
       } else {
         next();
       }
