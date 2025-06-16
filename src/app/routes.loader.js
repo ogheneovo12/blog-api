@@ -2,7 +2,7 @@ const cors = require("cors");
 const apiRoutes = require("./routes");
 const express = require("express");
 const { join } = require("path");
-const clientDistPath = join(__dirname, "..", "..", "client", "dist");
+const clientDistPath = join(__dirname, "..", "..", "..", "client", "dist");
 
 /**
  * Registers all api routes with the express app.
